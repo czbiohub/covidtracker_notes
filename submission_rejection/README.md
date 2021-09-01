@@ -19,23 +19,23 @@ The submitters can do one of the following:
 
 1) Check the read alignment (bam file) surrounding the frameshift, if it is due to assembly error, fix it; if the assembly is supported by enough reads, re-submit as is.
 
-2) If the frameshift is real, check ![this box](readme_image/gisaid_box.png) during submission. GISAID told me "The sequences will be released with a frameshift verification comment by the Submitter."
+2) If the frameshift is real, check ![this box](images/gisaid_box.png) during submission. GISAID told me "The sequences will be released with a frameshift verification comment by the Submitter."
 
 3) If the frameshift cannot be verified (such as no access to the read alignment bam file), resubmit as is but let GISAID know it wasn't verified. GISAID told me "Sequences are released with a non-verification comment from the Submitter."
 
-I believe the "verfied frameshift" and "non-verified frameshift" are distinguished by ![this mark](readme_image/gisaid_mark.png) on GISAID... except I'm not sure which is which XD 
+I believe the "verfied frameshift" and "non-verified frameshift" are distinguished by ![this mark](images/gisaid_mark.png) on GISAID... except I'm not sure which is which XD 
 
 
 ### GenBank
 
-GenBank runs [VADR](https://github.com/ncbi/vadr) and will detect many [potential problems](https://github.com/ncbi/vadr/blob/master/documentation/alerts.md#top) the genomes may have, and if any of those errors land within the essential genes, they will not let the sequence in. Installing and running VADR locally can be a task of its own, so I usually do a 1st submission to GenBank while checking ![this box](readme_image/genbank_box.png) where they will not report errors, and collect the genomes that were removed and do a 2nd submission with that box unchecked to obtain the VADR error message `detailed-error-report.tsv`. Hopefully soon they will return error messages during the auto removal process.
+GenBank runs [VADR](https://github.com/ncbi/vadr) and will detect many [potential problems](https://github.com/ncbi/vadr/blob/master/documentation/alerts.md#top) the genomes may have, and if any of those errors land within the essential genes, they will not let the sequence in. Installing and running VADR locally can be a task of its own, so I usually do a 1st submission to GenBank while checking ![this box](images/genbank_box.png) where they will not report errors, and collect the genomes that were removed and do a 2nd submission with that box unchecked to obtain the VADR error message `detailed-error-report.tsv`. Hopefully soon they will return error messages during the auto removal process.
 
 There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencecheck/virus/) and some of the errors can be connected or originate from the same sequence problem, such as `CDS_HAS_FRAMESHIFT` can lead to `CDS_HAS_STOP_CODON` and `INDEFINITE_ANNOTATION_END` and `UNEXPECTED_LENGTH`. The goal here is not to "fix" the genome until there is no more VADR errors. The goal is to fix the assembly errors and leave whatever that is correctly-assembled and well-supported by reads as is, and convince GenBank staff that you have done the due diligence so they will accept the genomes. That being said, I have not succeeded in sending our rejected genomes in so I will complete this section once that is done...
 
 
 # Types of frameshifts and when to fix them
 
-4 items are needed to inspect the frameshifts: the genome itself (the FASTA file), the genomic position of the frameshift so we know where to look (in the error message), the number of bases pairs of the insertion or deletion that is causing the frameshift (in the error message), the read alignment BAM files that the genome was assembled based off, and a genomic browser such as [IGV](https://igv.org/) to open the BAM files (whoa their new IGV site looks so nice that is distracting me from counting properly). Refresher for different related files types see [here](https://github.com/danrlu/covid_NGS_data_sample).
+4 items are needed to inspect the frameshifts: the genome itself (the FASTA file), the genomic position of the frameshift so we know where to look (in the error message), the number of bases pairs of the insertion or deletion that is causing the frameshift (in the error message), the read alignment BAM files that the genome was assembled based off, and a genomic browser such as [IGV](https://igv.org/) to open the BAM files (whoa their new IGV site looks so nice that is distracting me from counting properly). Refresher for different related files types see [here](https://github.com/czbiohub/covidtracker_notes/blob/main/bioinformatics/file_types.md).
 
 Note that Biohub only have **Illumina short read data** from metagenomic or ARTIC v3 libraries. Mis-assembly around deletions seems a lot more common for Nanopore data but I do not have enough experience to write about it. All our genomes were aligned with [minimap2 2.17](https://github.com/lh3/minimap2) and assembled with [iVar 1.2](https://github.com/andersen-lab/ivar). 
 
