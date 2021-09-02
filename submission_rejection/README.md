@@ -48,9 +48,18 @@ A fasta file with a linear genomic sequence has its limitations representing a m
 
 ### If there is mis-assembly of the genome based aligned sequencing reads, the genome needs a fix.
 
-With our Illumina data, almost all assembly error I see look like this. In the example below, the error message said it had a 1bp deletion that led to frameshift. If you look at the read alignment, it is actually a 3bp deletion unambiguously representated by the reads containing these 3bp deletions. However, there are reads that align into the region of deletion such as the first read. This read ends with nucleotide `TA` which are the same as the first 2bp of the deletion, which are also the same as the nucleotides flanking the deletion (the 2 blue arrows), so mostly this read contains this deletion just like all the other reads. However when the read-aligner mapped this read to the reference genome, it can map it either as shown in the snapshot below, or map it as having the deletion, and they will be equally good alignment. In this case, the aligner would always favor against the deletion to avoid the gap-penalty of alignment. As a result, this read was mapped as not having the deletion, and instead extend into the deletion. When the 
+With our Illumina data, almost all assembly error I see look like this. 
+
+In the example below, the error message said it had a 1bp deletion that led to frameshift. If you look at the read alignment, it is actually a 3bp deletion unambiguously representated by the reads containing these 3bp deletions. However, there are reads that align into the region of deletion such as the first read. This read ends with nucleotide `TA` which are the same as the first 2bp of the deletion, which are also the same as the nucleotides flanking the deletion (the 2 blue arrows), so mostly this read contains this deletion just like all the other reads. However when the read-aligner mapped this read to the reference genome, it can map it either as shown in the snapshot below, or map it as having the deletion, and they will be equally good alignment. In this case, the aligner would always favor against the deletion to avoid the gap-penalty of alignment. As a result, this read was mapped as not having the deletion, and instead extend into the deletion. 
+
+Then this alignment was given to iVar to assemble the genome. From iVar's perspective, in 2 positions of the 3bp deletion, some reads have a deletion, some reads don't (such as the first read), and iVar would fill those 2 positions as N, and leave only 1bp of deletion. That is where this 1bp frameshift error comes from. To fix this assembly error, I would delete the 2 Ns that falls within the deletion to make it a 3bp deletion.
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis1.png" width="400">
+
+Here is another example. 
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis2.png" width="800">
+
 
 ### If it is a real frameshift and the genome assembly is correct, there is nothing to fix. Do not edit anything.
 
