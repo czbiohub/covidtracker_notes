@@ -38,13 +38,17 @@ There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencec
 
 # Types of frameshifts and when to fix them
 
+For our 10,000+ genomes, GISAID returned ~650 genomes with ~700 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. Only the red slice requires fixing of the genomic sequence. 
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/type_count.png" width="500">
+
 4 items are needed to inspect the frameshifts: the genome itself (the FASTA file), the genomic position of the frameshift so we know where to look (in the error message), the number of bases pairs of the insertion or deletion that is causing the frameshift (in the error message), the read alignment BAM files that the genome was assembled based off, and a genomic browser such as [IGV](https://igv.org/) to open the BAM files (whoa their new IGV site looks so nice that is distracting me from counting properly). Refresher for different related files types see [here](https://github.com/czbiohub/covidtracker_notes/blob/main/bioinformatics/file_types.md).
 
 Note that Biohub only have **Illumina short read data** from metagenomic or ARTIC v3 libraries. Mis-assembly around deletions seems a lot more common for Nanopore data but I do not have enough experience to write about it. All our genomes were aligned with [minimap2 2.17](https://github.com/lh3/minimap2) and assembled with [iVar 1.2](https://github.com/andersen-lab/ivar). 
 
 ### A note on FASTA file limitation
 
-A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, seqeuncing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a position is A in some reads and C in others, this position can be represented as M (IUPAC code for A or C). However if a position has A in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an N in that position. All the genomes editing I have done to correct genome assembly error for COVID genome submissions, was to delete these Ns.
+A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, seqeuncing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a genomic position is `A` in some reads and `C` in others, this position can be represented as `M` (IUPAC code for `A` or `C`). However if a position has `A` in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an `N` in that position for lack of a better choice. All the editing I have done to correct genome assembly error for COVID genomes, was to delete these Ns.
 
 ### If there is mis-assembly of the genome based aligned sequencing reads, the genome needs a fix.
 
@@ -58,12 +62,39 @@ Then this alignment was given to iVar to assemble the genome. From iVar's perspe
 
 Here is another example. 
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis2.png" width="800">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis2.png" width="600">
 
 
 ### If it is a real frameshift and the genome assembly is correct, there is nothing to fix. Do not edit anything.
 
-### If it is a random 1bp insertion, which is 60% of all frameshifts we have, to keep my sanity, I did not fix.
+Example 1.
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real1.png" width="400">
+
+Example 2. If you notice that in the very middle there is a read that looks just like the previous mis-assembly section. The reason iVar didn't put an `N` there, was because the fraction of such reads are too small to count. On the other hand, if iVar had indeed put an `N` there, this wouldn't be identified as a frameshift because there will be no deletion (the 1bp will be filled as N).
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real2.png" width="400">
+
+One feature of real frameshifts is that we
+
+### If it is a random 1bp insertion, to keep my sanity, I did not fix.
+
+This is an interesting type of frameshifts. It is a 1bp insertion that lands seemingly random across the genome, most often precedes (a short stretch of) A or T (only 10/217 instances don't precede A or T), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. I am quite unsure about the original of this. Given it is an insertion instead of point mutation, it seem unlikely to be introduced by PCR processs; given the frequent occurrance, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication - so very curious. 
+
+For the purpose of submission, because the 1bp insertion is well-supported by reads, I usually don't remove them from the genome. Someone someday may find this feature interesting and do some study with it. 
+
+A few examples:
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp1.png" width="400">
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp2.png" width="400">
+
+Some rare cases:
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real3.png" width="400">
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real4.png" width="400">
+
 
 ### Tough nuts. No good solution.
 
