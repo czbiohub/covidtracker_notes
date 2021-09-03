@@ -1,6 +1,6 @@
-Notes on how to deal with rejected sequences based on our submission experience to GISAID or GenBank. 
+###Notes on how to deal with rejected sequences based on our submission experience to GISAID or GenBank. 
 
-- [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#when-covid-genome-submissions-do-not-get-accepted-immediately) 
+- [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#what-it-means-when-some-submitted-genomes-dont-get-accepted-immediately) 
 
 - [How to fix the frameshift errors and when not to with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
@@ -36,6 +36,7 @@ where they will not report errors, and collect the genomes that were removed and
 
 There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencecheck/virus/) and some of the errors can be connected or originate from the same sequence problem, such as `CDS_HAS_FRAMESHIFT` can lead to `CDS_HAS_STOP_CODON` and `INDEFINITE_ANNOTATION_END` and `UNEXPECTED_LENGTH`. The goal here is not to "fix" the genome until there is no more VADR errors. The goal is to fix the assembly errors and leave whatever that is correctly-assembled and well-supported by reads as is, and convince GenBank staff that you have done the due diligence so they will accept the genomes. That being said, I have not succeeded in sending our rejected genomes in so I will complete this section once that is done...
 
+<br>
 
 # Types of frameshifts and when to fix them
 
@@ -103,11 +104,13 @@ Some rare cases:
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real4.png" width="400">
 
+<br>
 
 # Some interesting observations
 
 
-
+<br>
+  
 ##### Note 1
 The error message can be found in the `comment` column from the output `query summary report` file found on the bottom of the CoVsurver result page. Sometimes GISAID will return that message together with rejection and that's all one needs. But when they don't, CoVsurver is the place to obtain it. Some people run their submissions through CoVsurver prior to submission to fix errors preemptively as well. If this tool gets busy and hangs, I usually just try a different time of the day (afternoon is better).
 
