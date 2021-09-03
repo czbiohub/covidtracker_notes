@@ -8,7 +8,7 @@ Notes on how to deal with rejected sequences based on our submission experience 
 
 **Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** They need a quality check which not always lead to further edits of the genomic sequence. I don't think the public repos communicates this well to submitters.
 
-# What it means when the genome submissions don't get accepted immediately
+# What it means when some submitted genomes don't get accepted immediately
 
 ### GISAID 
 
