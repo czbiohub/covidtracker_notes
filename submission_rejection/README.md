@@ -8,6 +8,8 @@
 
 **Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** It means they need a quality check which not always lead to edits of the genomic sequence. 
 
+<br>
+
 # What it means when some submitted genomes don't get accepted immediately
 
 ### GISAID 
