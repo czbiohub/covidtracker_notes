@@ -100,9 +100,9 @@ A few examples:
 
 Some rare cases:
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real3.png" width="400">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp3.png" width="400">
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real4.png" width="400">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp4.png" width="400">
 
 <br>
 
