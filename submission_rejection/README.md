@@ -1,4 +1,4 @@
-###Notes on how to deal with rejected sequences based on our submission experience to GISAID or GenBank. 
+### Notes on how to deal with rejected sequences based on our submission experience to GISAID or GenBank. 
 
 - [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#what-it-means-when-some-submitted-genomes-dont-get-accepted-immediately) 
 
@@ -6,7 +6,7 @@
 
 - [Where the real frameshift mutations tend on appear the genome for the curious minds.](#some-interesting-observations)
 
-**Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** They need a quality check which not always lead to further edits of the genomic sequence. I don't think the public repos communicates this well to submitters.
+**Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** It means they need a quality check which not always lead to edits of the genomic sequence. 
 
 # What it means when some submitted genomes don't get accepted immediately
 
@@ -42,7 +42,7 @@ There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencec
 
 For our 10,000+ genomes, GISAID returned ~650 genomes with ~700 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. Only the red slice requires fixing of the genomic sequence. 
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/type_count.png" width="500">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/type_count.png" width="700">
 
 4 items are needed to inspect the frameshifts: the genome itself (the FASTA file), the genomic position of the frameshift so we know where to look (in the error message), the number of bases pairs of the insertion or deletion that is causing the frameshift (in the error message), the read alignment BAM files that the genome was assembled based off, and a genomic browser such as [IGV](https://igv.org/) to open the BAM files (whoa their new IGV site looks so nice that is distracting me from counting properly). Refresher for different related files types see [here](https://github.com/czbiohub/covidtracker_notes/blob/main/bioinformatics/file_types.md).
 
