@@ -78,7 +78,7 @@ Whether there is assembly error is independent of whether after the assembly err
 
 ### If the genome assembly is correct, there is nothing to fix. Regardless of whether frameshift or not, do not edit anything.
 
-The key to tell whether the genome assembly is correct, is whether the number of base pair of deletion or insertion as flagged by the error message match the reads. Below is a real frameshift, and it matches the error message of "FRAMESHIFT of 8bp".
+The key to tell whether the genome assembly is correct, is whether the number of base pair of deletion or insertion as flagged by the error message match the reads. Below matches the error message of "FRAMESHIFT of 8bp" so it needs no edits. 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real1.png" width="400">
 
