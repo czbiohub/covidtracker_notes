@@ -76,9 +76,9 @@ Another example:
 
 Whether there is assembly error is independent of whether after the assembly error is fixed, a real frameshift exist or not. Our goal is to fix all assembly errors and after that leave the rest alone regardless of frameshifts. 
 
-### If it is a real frameshift and the genome assembly is correct, there is nothing to fix. Do not edit anything.
+### If the genome assembly is correct, there is nothing to fix. Regardless of whether frameshift or not, do not edit anything.
 
-The rationale behind flag frameshifts as potential errors by the public repositories is that frameshifts are usually detrimental to the virus becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. This frameshift below is right in the middle of ORF1a. The explanation is that some genes are not that critical (ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), I saw lots of frameshifts near the end of genes, and if there is more than one strain in a host their proteins can compensate for each other. 
+The key to tell whether the genome assembly is correct, is whether the number of base pair of deletion or insertion as flagged by the error message match the reads. Below is a real frameshift, and it matches the error message of "FRAMESHIFT of 8bp".
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real1.png" width="400">
 
@@ -110,6 +110,7 @@ Some rare cases:
 
 # Some interesting observations
 
+The rationale behind flag frameshifts as potential errors by the public repositories is that frameshifts are usually detrimental to the virus becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. This frameshift below is right in the middle of ORF1a. The explanation is that some genes are not that critical (ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), I saw lots of frameshifts near the end of genes, and if there is more than one strain in a host their proteins can compensate for each other. 
 
 <br>
   
