@@ -1,13 +1,14 @@
-This page contains notes based on our submission experience to GISAID or GenBank in hopes to make it easier for others. 
+Notes on how to deal with rejected sequences based on our submission experience to GISAID or GenBank. 
 
-[What it means when the genome submissions don't get accepted immediately](#when-covid-genome-submissions-do-not-get-accepted-immediately), 
+- [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#when-covid-genome-submissions-do-not-get-accepted-immediately) 
 
-[how to fix the frameshift errors and when not to fix one](#types-of-frameshifts-and-when-to-fix-them). **Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** They need a check which not always lead to further edits of the genomic sequence. This is a very important point but I don't think the public repo do a good job in making this clear to people.
+- [How to fix the frameshift errors and when not to with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
-and [some interesting observations of where the real frameshift mutations tend on appear the genome](#some-interesting-observations).
+- [Where the real frameshift mutations tend on appear the genome for the curious minds.](#some-interesting-observations)
 
+**Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** They need a quality check which not always lead to further edits of the genomic sequence. I don't think the public repos communicates this well to submitters.
 
-# When COVID genome submissions do not get accepted immediately
+# What it means when the genome submissions don't get accepted immediately
 
 ### GISAID 
 
@@ -48,13 +49,11 @@ Note that Biohub only have **Illumina short read data** from metagenomic or ARTI
 
 ### A note on FASTA file limitation
 
-A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, seqeuncing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a genomic position is `A` in some reads and `C` in others, this position can be represented as `M` (IUPAC code for `A` or `C`). However if a position has `A` in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an `N` in that position for lack of a better choice. All the editing I have done to correct genome assembly error for COVID genomes, was to delete these Ns.
+A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, sequencing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a genomic position is `A` in some reads and `C` in others, this position can be represented as `M` (IUPAC code for `A` or `C`). However if a position has `A` in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an `N` in that position for lack of a better choice. All the editing I have done to correct genome assembly error for COVID genomes, was to delete these Ns.
 
 ### If there is mis-assembly of the genome based aligned sequencing reads, the genome needs a fix.
 
-With our Illumina data, almost all assembly error I see look like this. 
-
-In the example below, the error message said it had a 1bp deletion that led to frameshift. If you look at the read alignment, it is actually a 3bp deletion unambiguously representated by the reads containing these 3bp deletions. However, there are reads that align into the region of deletion such as the first read. This read ends with nucleotide `TA` which are the same as the first 2bp of the deletion, which are also the same as the nucleotides flanking the deletion (the 2 blue arrows), so mostly this read contains this deletion just like all the other reads. However when the read-aligner mapped this read to the reference genome, it can map it either as shown in the snapshot below, or map it as having the deletion, and they will be equally good alignment. In this case, the aligner would always favor against the deletion to avoid the gap-penalty of alignment. As a result, this read was mapped as not having the deletion, and instead extend into the deletion. 
+With our Illumina data, most of the assembly error I see look like this example below. The error message said it had a 1bp deletion that led to frameshift. If you look at the read alignment, it is actually a 3bp deletion unambiguously representated by the reads containing these 3bp deletions. However, there are reads that align into the region of deletion such as the first read. This read ends with nucleotide `TA` which are the same as the first 2bp of the deletion, which are also the same as the nucleotides flanking the deletion (the 2 blue arrows), so mostly this read contains this deletion just like all the other reads. However when the read-aligner mapped this read to the reference genome, it can map it either as shown in the snapshot below, or map it as having the deletion, and they will be equally good alignment. In this case, the aligner would always favor against the deletion to avoid the gap-penalty of alignment. As a result, this read was mapped as not having the deletion, and instead extend into the deletion. 
 
 Then this alignment was given to iVar to assemble the genome. From iVar's perspective, in 2 positions of the 3bp deletion, some reads have a deletion, some reads don't (such as the first read), and iVar would fill those 2 positions as N, and leave only 1bp of deletion. That is where this 1bp frameshift error comes from. To fix this assembly error, I would delete the 2 Ns that falls within the deletion to make it a 3bp deletion.
 
@@ -64,10 +63,19 @@ Here is another example.
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis2.png" width="600">
 
+In a rarely seen but related scenario below, the 4bp in the middle is `TTCA` in the refrence genome, and in the sample genome the sequence is `GTTC`. When the reads were aligned, they could either be aligned as having mutations in 3 positions, or a combination of an insertion and a deletion. When such a mixed alignment type were presented to iVar, iVar combined these 2 types of alignment and called the position of insertion `N` as explained above, followed by `K` (`T` or `G`), `T`, `Y` (`C` or `T`), and the deletion as `N`. That is 1bp longer than the reference genome and therefore a frameshift. To fix this assembly error, I replaced `NKTYN` with `GTTC` and the frameshift goes away.
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis3.png" width="600">
+
+Another example:
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis4.png" width="600">
+
+Whether there is assembly error is independent of whether after the assembly error is fixed, a real frameshift exist or not. Our goal is to fix all assembly errors and after that leave the rest alone regardless of frameshifts. 
 
 ### If it is a real frameshift and the genome assembly is correct, there is nothing to fix. Do not edit anything.
 
-Example 1.
+The rationale behind flag frameshifts as potential errors by the public repositories is that frameshifts are usually detrimental to the virus becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. This frameshift below is right in the middle of ORF1a. The explanation is that some genes are not that critical (ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), I saw lots of frameshifts near the end of genes, and if there is more than one strain in a host their proteins can compensate for each other. 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real1.png" width="400">
 
@@ -75,13 +83,13 @@ Example 2. If you notice that in the very middle there is a read that looks just
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real2.png" width="400">
 
-One feature of real frameshifts is that we
+In an effort to let through real frameshifts, GISAID now provides an option to ignore all previously known frameshifts, and GenBank is ignoring all non-essential genes, which is great.
 
-### If it is a random 1bp insertion, to keep my sanity, I did not fix.
+### If it is a random 1bp insertion, can go either way. For my own sanity, I did not fix them.
 
-This is an interesting type of frameshifts. It is a 1bp insertion that lands seemingly random across the genome, most often precedes (a short stretch of) A or T (only 10/217 instances don't precede A or T), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. I am quite unsure about the original of this. Given it is an insertion instead of point mutation, it seem unlikely to be introduced by PCR processs; given the frequent occurrance, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication - so very curious. 
+This is an interesting type of frameshifts. It is a 1bp insertion that lands seemingly random across the genome, most often precedes (a short stretch of) `A` or `T` (only 10/217 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. I am quite unsure about the original of this. Given it is an insertion instead of point mutation, it seem unlikely to be introduced by PCR processs; given the frequent occurrance, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication - so very curious. 
 
-For the purpose of submission, because the 1bp insertion is well-supported by reads, I usually don't remove them from the genome. Someone someday may find this feature interesting and do some study with it. 
+For the purpose of submission, because the 1bp insertion is well-supported by reads, I usually don't remove them from the genome. Someone someday may find this feature interesting and do some study with it (or I am just too lazy).
 
 A few examples:
 
@@ -94,12 +102,6 @@ Some rare cases:
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real3.png" width="400">
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real4.png" width="400">
-
-
-### Tough nuts. No good solution.
-
-The genomic sequence in a fasta file is one linear sequence and things become tricky when there is more than one type of genomes, such as natural within host variation or . It allows some
-
 
 
 # Some interesting observations
