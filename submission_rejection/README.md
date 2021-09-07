@@ -2,7 +2,7 @@
 
 - [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#what-it-means-when-some-submitted-genomes-dont-get-accepted-immediately) 
 
-- [How to fix the frameshift errors and when not to with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
+- [How to fix the frameshift errors and when not to, with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
 - [Where the real frameshift mutations tend on appear the genome for the curious minds.](#some-interesting-observations)
 
