@@ -1,4 +1,4 @@
-### Notes on how to deal with rejected sequences based on our submission experience to GISAID or GenBank. 
+### Notes on how to deal with rejected sequences. 
 
 - [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#what-it-means-when-some-submitted-genomes-dont-get-accepted-immediately) 
 
@@ -17,7 +17,7 @@
 GISAID by default will return sequences with frameshifts to the submitter, and below is direct quote from GISAID team (Jun 2021 email):
 
 ```
-The curation team is just waiting for the submitter's confirmation, waiting for three possibilities:
+Your sequences with frameshift detection have not been rejected... The curation team is just waiting for the submitter's confirmation, waiting for three possibilities:
 
 1) The Submitter notes that the frameshift was due to a bioinformatic error and then submit the sequences again, now without frameshift detection. The sequences are released.
 
@@ -26,28 +26,17 @@ The curation team is just waiting for the submitter's confirmation, waiting for 
 3) The Submitter has no way to confirm or reject the presence of the frameshift. The Submitter resubmits the sequences and advises us that they cannot verify them. Sequences are released with a non-verification comment from the Submitter.
 ```
 
+I think GISAID's approach is extremely sensible: to alert people of potential errors, yet provide the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not made clear anywhere and everyone felt burdened to "fix" their "rejected genomes".
 
+Now they added an option in the batch upload process so people can choose between a few options: 
 
-I think it is really the best approach to alert people of potential errors, yet give people the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not made clear anywhere and everyone felt burdened to "fix" their "rejected genomes".
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_options.png" width="800"> 
 
-Now they added an option in the batch upload process so people can make a choice 
+The ideal workflow is to check the middle one in the first submission, then go through all frameshifts, fix assembly errors among them, and resubmit with the last option (which corresponds to point 1-2) above). 
+
+Alternatively for busy people, one can also upload and add a message with this button <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_contact.png" width="800"> to note that the frameshifts are not verified and ask GISAID to accept the data as is. I believe the "verfied frameshift" and "non-verified frameshift" are distinguished by this icon on GISAID search table <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_mark.png" width="30"> ... except I'm not sure which is which XD 
 
 Behind the scene, GISAID runs the submitted genome through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with `FRAMESHIFT` (more about this tool and obtaining the error message see [note 1](#note-1)). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift, and the genomic position of the frameshift is critical in evaluating and fixing them.
-
-GISAID return those sequences to submitters and direct quote from them "**your sequences with frameshift detection have not been rejected**, even if you want us to release the sequences as they are, you just have to let us know by email". 
-
-The submitters can do one of the following:
-
-1) Check the read alignment (bam file) surrounding the frameshift, if it is due to assembly error, fix it; if the assembly is supported by enough reads, re-submit as is.
-
-2) If the frameshift is real, check this box below during submission. GISAID told me "The sequences will be released with a frameshift verification comment by the Submitter."
-
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_box.png" width="800"> 
-
-3) If the frameshift cannot be verified (such as no access to the read alignment bam file), resubmit as is but let GISAID know it wasn't verified. GISAID told me "Sequences are released with a non-verification comment from the Submitter."
-
-I believe the "verfied frameshift" and "non-verified frameshift" are distinguished by this icon on GISAID search table <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_mark.png" width="30"> ... except I'm not sure which is which XD 
-
 
 ### GenBank
 
