@@ -97,7 +97,7 @@ In an effort to let through real frameshifts, GISAID now provides an option to i
 
 ### If it is a random 1bp insertion, can go either way. For my own sanity, I did not fix them.
 
-This is an interesting type of frameshifts. It is a 1bp insertion that lands seemingly random across the genome, most often precedes (a short stretch of) `A` or `T` (only 10/217 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. I am quite unsure about the original of this. Given it is an insertion instead of point mutation, it seem unlikely to be introduced by PCR processs; given the frequent occurrance, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication - so very curious. 
+This is an interesting type of frameshifts. It is a 1bp insertion that lands seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 10/217 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. I am quite unsure about the original of this. Given it is an insertion instead of point mutation, it seem unlikely to be introduced by PCR processs; given the frequent occurrance, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication? If anyone knows, please let me know! 
 
 For the purpose of submission, because the 1bp insertion is well-supported by reads, I usually don't remove them from the genome. Someone someday may find this feature interesting and do some study with it (or I am just too lazy).
 
@@ -117,7 +117,7 @@ Some rare cases:
 
 # Some interesting observations
 
-The rationale behind flag frameshifts as potential errors by the public repositories is that frameshifts are usually detrimental to the virus becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. This frameshift below is right in the middle of ORF1a. The explanation is that some genes are not that critical (ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), I saw lots of frameshifts near the end of genes, and if there is more than one strain in a host their proteins can compensate for each other. 
+The rationale behind flagging frameshifts as potential errors by the public repositories is that frameshifts are usually detrimental becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. For COVID, some genes are not that critical (ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), frameshifts near the end of genes matters less, and if there is more than one viral genotype in a host, their proteins can compensate for each other. Below is 
 
 <br>
   
