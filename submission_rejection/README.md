@@ -14,6 +14,22 @@
 
 ### GISAID 
 
+GISAID by default will return sequences with frameshifts to the submitter, and below is direct quote from GISAID team (Jun 2021 email):
+
+```
+The curation team is just waiting for the submitter's confirmation, waiting for three possibilities:
+
+1) The Submitter notes that the frameshift was due to a bioinformatic error and then submit the sequences again, now without frameshift detection. The sequences are released.
+
+2) The Submitter notes that the frameshift is real, and then resubmit the sequences notifying that the frameshift is real. The sequences will be released with a frameshift verification comment by the Submitter
+
+3) The Submitter has no way to confirm or reject the presence of the frameshift. The Submitter resubmits the sequences and advises us that they cannot verify them. Sequences are released with a non-verification comment from the Submitter.
+```
+
+I think they have a very sensible intention to alert people of potential errors, yet give people the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not made clear anywhere and everyone felt burdened to "fix" their "rejected genomes".
+
+Now they added an option in the batch upload process so people can choose what they 
+
 Behind the scene, GISAID runs the submitted genome through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with `FRAMESHIFT` (more about this tool and obtaining the error message see [note 1](#note-1)). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift, and the genomic position of the frameshift is critical in evaluating and fixing them.
 
 GISAID return those sequences to submitters and direct quote from them "**your sequences with frameshift detection have not been rejected**, even if you want us to release the sequences as they are, you just have to let us know by email". 
