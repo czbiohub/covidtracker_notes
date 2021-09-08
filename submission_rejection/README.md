@@ -4,7 +4,7 @@
 
 - [How to fix the frameshift errors and when not to, with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
-- [Where the real frameshift mutations tend on appear the genome for the curious minds.](#some-interesting-observations)
+- [Where the real frameshift mutations tend on appear the genome, for the curious minds.](#some-interesting-observations)
 
 **Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** It means they need a quality check which not always lead to edits of the genomic sequence. 
 
@@ -34,7 +34,7 @@ Now they added an option in the batch upload process so people can choose betwee
 
 The ideal workflow is to check the middle one in the first submission, then go through all frameshifts, fix assembly errors among them, and resubmit with the last option (which corresponds to point 1-2 above). 
 
-Alternatively for busy people, one can also upload and add a message with this button <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_contact.png" width="200"> to note that the frameshifts are not verified and ask GISAID to accept the data as is (point 3 above). I believe the "verfied frameshift" and "non-verified frameshift" are distinguished by this icon on GISAID search table <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_mark.png" width="30"> ... except I'm not sure which is which XD 
+Alternatively for busy people, one can also upload and add a message with this button <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_contact.png" width="100"> to note that the frameshifts are not verified and ask GISAID to accept the data as is (point 3 above). I believe the "verfied frameshift" and "non-verified frameshift" are distinguished by this icon on GISAID search table <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/gisaid_mark.png" width="30"> ... except I'm not sure which is which XD 
 
 Behind the scene, GISAID runs the submitted genome through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with the word `FRAMESHIFT` in the comment column (more about this tool and obtaining the error message see [note 1](#note-1)). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift, and the genomic position of the frameshift is critical in evaluating and fixing them.
 
