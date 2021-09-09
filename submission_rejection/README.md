@@ -1,10 +1,10 @@
-### Notes on how to deal with rejected sequences. 
+## Notes on how to deal with rejected sequences: 
 
 - [What it means when the genome submissions don't get accepted immediately and what is expected of us.](#what-it-means-when-some-submitted-genomes-dont-get-accepted-immediately) 
 
 - [How to fix the frameshift errors and when not to, with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
-- [Where the real frameshift mutations tend on appear the genome, for the curious minds.](#some-interesting-observations)
+- [Some interesting observations for the curious minds.](#some-interesting-observations)
 
 **Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix.** It means they need a quality check which not always lead to edits of the genomic sequence. 
 
@@ -51,7 +51,7 @@ There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencec
 
 For our 10,000+ genomes, GISAID returned ~650 genomes with ~700 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. Only the red slice requires fixing of the genomic sequence. 
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/type_count.png" width="700">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/type_count.png" width="500">
 
 4 items are needed to inspect the frameshifts: the genome itself (the FASTA file), the genomic position of the frameshift so we know where to look (in the error message), the number of bases pairs of the insertion or deletion that is causing the frameshift (in the error message), the read alignment BAM files that the genome was assembled based off, and a genomic browser such as [IGV](https://igv.org/) to open the BAM files (whoa their new IGV site looks so nice that is distracting me from counting properly). Refresher for different related files types see [here](https://github.com/czbiohub/covidtracker_notes/blob/main/bioinformatics/file_types.md).
 
@@ -123,11 +123,11 @@ The rationale behind flagging frameshifts as potential errors is that frameshift
 
 Below are frameshift positions we saw in more than 10 sample genomes. These numbers carry the caveat that we often sequenced outbreak samples that have identical or highly related genomes and are likely to share the same frameshifts.
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/frameshift_count.png" width="400">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/frameshift_count.png" width="300">
 
-Below shows where frameshifts tend to appear on the genome. It counts, in each 50bp bin, how many **unique** frameshift positions there are (not counting the same frameshifts we saw in different samples).
+Below shows where frameshifts tend to appear on the genome. It counts, in each 50bp bin, how many **unique** frameshift positions there are (not counting the same frameshifts seen in different samples).
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/frameshift_plot.png" width="400">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/frameshift_plot.png" width="1000">
 
 <br>
   
@@ -137,11 +137,11 @@ We are quite unsure about the origin of those random 1bp insertions. Given it is
 
 Below are 1bp insertion positions we saw in more than 2 sample genomes. They showed up much less frequently in the same position as real frameshifts. However we certainly did not capture all instances because they show up only in some of the reads, and if the percentage of reads is too low, iVar will not include it in the assembled consensus genomes.
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp_count.png" width="400">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp_count.png" width="300">
 
-Below shows where these random 1bp insertions tend to appear on the genome. It counts, in each 50bp bin, how many **unique** insertion positions there are (not counting the same insertion we saw in different samples).
+Below shows where these random 1bp insertions tend to appear on the genome. It counts, in each 50bp bin, how many **unique** insertion positions there are (not counting the same insertion seen in different samples).
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp_plot.png" width="400">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp_plot.png" width="1000">
 
 <br>
   
