@@ -10,7 +10,7 @@
 
 <br>
 
-# What it means when some submitted genomes don't get accepted immediately
+## What it means when some submitted genomes don't get accepted immediately
 
 ### GISAID 
 
@@ -47,7 +47,7 @@ There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencec
 
 <br>
 
-# Types of frameshifts and when to fix them
+## Types of frameshifts and when to fix them
 
 For our 10,000+ genomes, GISAID returned ~650 genomes with ~700 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. Only the red slice requires fixing of the genomic sequence. 
 
@@ -115,7 +115,9 @@ Some rare cases:
 
 <br>
 
-# Some interesting observations
+## Some interesting observations
+
+Our samples were collected between Mar 2020 and May 2021.
 
 ### Where on the genome the frameshifts tend to appear
 
