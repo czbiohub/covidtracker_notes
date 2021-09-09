@@ -136,7 +136,7 @@ Below are frameshift positions we saw in more than 10 sample genomes. These numb
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/frameshift_count.png" width="300">
 
-Below shows where frameshifts tend to appear on the genome. It counts, in each 50bp bin, how many **unique** frameshift positions there are (not counting the same frameshifts seen in different samples).
+Below shows where frameshifts tend to appear on the genome. It counts, in each 50bp bin, how many **unique** frameshift positions there are (not counting the same frameshifts seen in different samples). The gene model is taken from the wonderful [Nextstrain](https://nextstrain.org/). 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/frameshift_plot.png" width="1000">
 
@@ -150,7 +150,7 @@ Below are 1bp insertion positions we saw in more than 2 sample genomes. They sho
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/N1bp_count.png" width="300">
 
-Below shows where these random 1bp insertions tend to appear on the genome. It counts, in each 50bp bin, how many **unique** insertion positions there are (not counting the same insertion seen in different samples).
+Below shows where these random 1bp insertions tend to appear on the genome. It counts, in each 50bp bin, how many **unique** insertion positions there are (not counting the same insertion seen in different samples). The gene model is taken from the wonderful [Nextstrain](https://nextstrain.org/). 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/N1bp_plot.png" width="1000">
 
