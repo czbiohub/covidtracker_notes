@@ -49,7 +49,7 @@ There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencec
 
 ## Types of frameshifts and when to fix them
 
-For our 10,000+ genomes, GISAID and GenBank returned 800+ genomes with ~960 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. 
+For our 10,000+ genomes, GISAID and GenBank returned 800+ genomes with ~960 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. A collection of snapshots for all of them (removing duplicate cases) can be found in the subfolders.
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/type_count.png" width="500">
 
@@ -93,6 +93,7 @@ Another example of real frameshift and correct genome assemlby. If you notice th
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real2.png" width="300">
 
 In an effort to let through real frameshifts, GISAID now provides an option to ignore all previously known frameshifts, and GenBank is ignoring all non-essential genes, which is great.
+
 
 ### If it is a random 1bp insertion, can go either way. For our sanity, we did not fix them.
 
