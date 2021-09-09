@@ -1,6 +1,6 @@
 ## Notes on how to deal with rejected sequences:
 
-- [When the genome submissions don't get accepted immediately, what is expected of us.](#what-it-means-when-some-submitted-genomes-dont-get-accepted-immediately) 
+- [When the genome submissions don't get accepted immediately, what is expected of us.](#when-some-submitted-genomes-dont-get-accepted-immediately) 
 
 - [How to fix the frameshift errors and when not to, with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
@@ -38,6 +38,8 @@ Alternatively for busy people, one can also upload and add a message with this b
 
 Behind the scene, GISAID runs the submitted genome through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with the word `FRAMESHIFT` in the comment column in the error message. Sometimes GISAID will send that message together with rejection to the submitter. But when they don't, it is the `query summary report` file found on the very bottom of the CoVsurver result page. If this tool gets busy and hangs, try a different time of the day (afternoon is better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift, and the genomic position of the frameshift is critical in evaluating and fixing them.
 
+<br>
+
 ### GenBank
 
 GenBank runs [VADR](https://github.com/ncbi/vadr) and will detect many [potential problems](https://github.com/ncbi/vadr/blob/master/documentation/alerts.md#top) the genomes may have, and if any of those errors land within the essential genes, they will not let the sequence in. Installing and running VADR locally can be a task of its own, so we usually do a 1st submission to GenBank while checking this box <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/genbank_box.png" width="450"> 
@@ -57,9 +59,13 @@ For our 10,000+ genomes, GISAID and GenBank returned 800+ genomes with ~960 fram
 
 Note that Biohub only have **Illumina short read data** from metagenomic or ARTIC v3 libraries. Mis-assembly around deletions seems a lot more common for Nanopore data but we do not have enough experience to write about it. All our genomes were aligned with [minimap2 2.17](https://github.com/lh3/minimap2) and assembled with [iVar 1.2](https://github.com/andersen-lab/ivar). Full pipeline is [here](https://github.com/czbiohub/sc2-illumina-pipeline).
 
+<br>
+
 ### Where did the `N` come from?
 
 A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, sequencing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a genomic position is `A` in some reads and `C` in others, this position can be represented as `M` (IUPAC code for `A` or `C`). However if a position has `A` in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an `N` in that position for lack of a better choice. Almost all the editing done to correct our genome assembly errors was to delete these Ns.
+
+<br>
 
 ### If there is mis-assembly of the genome based on aligned sequencing reads, the genome needs a fix.
 
@@ -81,6 +87,7 @@ Another example:
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/mis4.png" width="500">
 
+<br>
 
 ### If the genome assembly is correct, there is nothing to fix. Regardless of whether frameshift or not, do not edit anything.
 
@@ -92,8 +99,7 @@ Another example of real frameshift and correct genome assemlby. If you notice th
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/real2.png" width="300">
 
-In an effort to let through real frameshifts, GISAID now provides an option to ignore all previously known frameshifts, and GenBank is ignoring all non-essential genes, which is great.
-
+<br>
 
 ### If it is a random 1bp insertion, can go either way. For our sanity, we did not fix them.
 
@@ -113,7 +119,9 @@ Some rare cases:
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp4.png" width="400">
 
+
 <br>
+
 
 ## Some interesting observations
 
