@@ -95,11 +95,11 @@ Example 2. If you notice that in the very middle there is a read that looks just
 
 In an effort to let through real frameshifts, GISAID now provides an option to ignore all previously known frameshifts, and GenBank is ignoring all non-essential genes, which is great.
 
-### If it is a random 1bp insertion, can go either way. For my own sanity, I did not fix them.
+### If it is a random 1bp insertion, can go either way. For my own sanity, we did not fix them.
 
-This is an interesting type of frameshifts. It is a 1bp insertion that lands seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 10/217 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. I am quite unsure about the original of this. Given it is an insertion instead of point mutation, it seem unlikely to be introduced by PCR processs; given the frequent occurrance, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication? If anyone knows, please let me know! 
+This is an interesting type of frameshifts. It is a 1bp insertion that lands at seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 10/217 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. see [discussion here](https://github.com/andersen-lab/ivar/issues/45). So there must be more cases like this that we did not capture, because the amount of reads containing the 1bp insertion is below iVar threshold to make it into the consensus genome.
 
-For the purpose of submission, because the 1bp insertion is well-supported by reads, I usually don't remove them from the genome. Someone someday may find this feature interesting and do some study with it (or I am just too lazy).
+For the purpose of submission, because the 1bp insertion is well-supported by reads, we usually don't remove them from the genome. Someone someday may find this feature interesting and do some study with it (or yes, our submitter is simply too lazy).
 
 A few examples:
 
@@ -117,7 +117,31 @@ Some rare cases:
 
 # Some interesting observations
 
-The rationale behind flagging frameshifts as potential errors by the public repositories is that frameshifts are usually detrimental becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. For COVID, some genes are not that critical (ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), frameshifts near the end of genes matters less, and if there is more than one viral genotype in a host, their proteins can compensate for each other. Below is 
+### Where on the genome the frameshifts tend to appear
+
+The rationale behind flagging frameshifts as potential errors is that frameshifts are usually detrimental becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. For example, some genes are not that critical, for example ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), frameshifts near the end of genes matters less, and if there is more than one viral genotype in a host, their proteins can compensate for each other. 
+
+Below are frameshift positions we saw in more than 10 sample genomes. These numbers carry the caveat that we often sequenced outbreak samples that have identical or highly related genomes and are likely to share the same frameshifts.
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/frameshift_count.png" width="400">
+
+Below shows where frameshifts tend to appear on the genome. It counts, in each 50bp bin, how many **unique** frameshift positions there are (not counting the same frameshifts we saw in different samples).
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/frameshift_plot.png" width="400">
+
+<br>
+  
+### Where on the genome the random 1bp insertion tend to appear
+
+We are quite unsure about the origin of those random 1bp insertions. Given it is an insertion instead of point mutation, it seems unlikely to be introduced by PCR processs; given the frequent occurrance on so many reads, it's extremely unlikely to be sequencing error. It may have something to do with the virus replication? If anyone knows, please let us know!
+
+Below are 1bp insertion positions we saw in more than 2 sample genomes. They showed up much less frequently in the same position as real frameshifts. However we certainly did not capture all instances because they show up only in some of the reads, and if the percentage of reads is too low, iVar will not include it in the assembled consensus genomes.
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp_count.png" width="400">
+
+Below shows where these random 1bp insertions tend to appear on the genome. It counts, in each 50bp bin, how many **unique** insertion positions there are (not counting the same insertion we saw in different samples).
+
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/images/N1bp_plot.png" width="400">
 
 <br>
   
