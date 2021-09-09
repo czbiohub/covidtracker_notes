@@ -4,6 +4,14 @@
 
 - `correct_assembly_real_frameshift` contains positions that were assembled correctly and contain real frameshifts. They needed no fix or edits.
 
-- `erroneous_assembly` contains positions that had assembly error. they may or may not contain real framesshifts. They all needed fix.
+- `erroneous_assembly_not_frameshift_after_fix` contains positions that had assembly error that needed fix. After fixing assembly errors, there were no more frameshifts.
+
+- `erroneous_assembly_real_frameshift_after_fix` contains positions that had assembly error that needed fix. After fixing assembly errors, there were still frameshifts.
 
 - `random_1bp_insertion` contains positions that had 1bp insertion that were denoted as `N` in the consensus genome. We did not edit them for re-submission.
+
+- Filenames contain genomic positions followed by the ID for GISAID or GenBank. 
+
+- The genomic position of interest is at 20bp from the left edge of the snapshots.
+
+- Not all reads were captured in the snapshots. 
