@@ -52,7 +52,7 @@ There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencec
 
 ## Types of frameshifts and when to fix them
 
-For our 10,000+ genomes, GISAID and GenBank returned 800+ genomes with ~960 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. A collection of snapshots for all of them (removing duplicate cases) can be found in the subfolders.
+For our 10,000+ genomes, GISAID and GenBank returned 800+ genomes with ~960 frameshifts (one genome can have multiple frameshifts). Here is a breakdown of different types of frameshifts. A collection of snapshots for all of them (removing duplicate cases) can be found in the [frameshift_snapshots subfolder](https://github.com/czbiohub/covidtracker_notes/tree/main/submission_rejection/frameshift_snapshots).
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/type_count.png" width="500">
 
