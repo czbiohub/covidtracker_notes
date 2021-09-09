@@ -6,8 +6,6 @@
 
 - [Some interesting observations for the curious minds.](#some-interesting-observations)
 
-(Based on our experience in summer 2021.)
-
 **Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix. It means they need a quality check which not always lead to edits of the genomic sequence.**
 
 <br>
