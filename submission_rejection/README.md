@@ -1,4 +1,4 @@
-## Notes on how to deal with rejected sequences:
+## Notes on how to deal with sequences that require QC prior to release:
 
 - [When the genome submissions don't get accepted immediately, what is expected of us.](#when-some-submitted-genomes-dont-get-accepted-immediately) 
 
@@ -11,33 +11,42 @@
 
 ## When some submitted genomes don't get accepted immediately
 
-Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs to be fixed. It means they need a quality check, which doesn't always lead to edits of the genomic sequence.
+Receiving error messages from GISAID or GenBank doesn't necessarily mean the genome assembly is wrong and needs to be fixed. It means they need a quality check, which doesn't always lead to edits of the genomic sequence.
 
 ### GISAID 
 
-Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with the word `FRAMESHIFT` in the comment column. Sometimes GISAID will send the comment together with rejection to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better and smaller batches of < 200 genomes are better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift and the genomic position of the frameshift is critical in evaluating and fixing them.
+Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/). When a frameshift is detected (word `FRAMESHIFT` in the comment column), the submitter is notified and confirmation of the frameshift will be requested for quality control. Sometimes GISAID will send the comment together with notification to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better and smaller batches of < 200 genomes are better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift and the genomic position of the frameshift is critical in evaluating and fixing them.
 
-**Below is direct quote from the GISAID team (Jun 2021 email):**
+==============================
 
-```
-Your sequences with frameshift detection have not been rejected... The curation team is just waiting for the submitter's confirmation, waiting for three possibilities:
+**Below is a direct quote from the GISAID team (September 2021):**
 
-1. The Submitter notes that the frameshift was due to a bioinformatic error and then submit the sequences again, now without frameshift detection. The sequences are released.
+In Late July 2020, GISAID confirmed with public health authorities its procedures for the quality control of gaps in genomic sequences that cause frameshifts and other genomic changes. In case of more consequential changes, insertions and deletions can result in a frameshift which would result in truncated non-functional proteins (normally selected against by the natural evolution and hence more likely a technical error).  As a result, GISAID protocols call for curators to confirm with data submitters that such observations are indeed supported by the sequencing data they present.  As a result of GISAID’s confirmation procedures, countless errors are detected that would otherwise be introduced in the EpiCoV™ database. 
 
-2. The Submitter notes that the frameshift is real, and then resubmit the sequences notifying that the frameshift is real. The sequences will be released with a frameshift verification comment by the Submitter
+While GISAID remains committed to high-quality data standards, GISAID continuously improves the user experience as well as data submission procedures. Current solutions include functionalities permitting submitters to confirm that their bioinformatics pipeline reliably captures sequence changes.
+GISAID requests submitters to select their preference for how sequences with frameshifts are handled as part of the process for upload, and will be notified accordingly. Current options include:
 
-3. The Submitter has no way to confirm or reject the presence of the frameshift. The Submitter resubmits the sequences and advises us that they cannot verify them. Sequences are released with a non-verification comment from the Submitter.
-```
+1. “Notify me about all detected frameshifts in this submission for reconfirmation of affected sequences”  and “Notify me only about not previously reported frameshifts in this submission for reconfirmation of affected sequences”. If these options are selected and a frameshift is detected, the submitter can elect to: Submitter performs QC and if bioinformatics error is believed to have occurred, submitter amends submission and resubmits.
 
-GISAID's approach is very reasonable: to alert people of potential errors, yet provide the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not made clear anywhere and everyone felt burdened to "fix" their "rejected genomes".
+2. Submitter performs QC and confirms the frameshift to be a true frameshift. The sequences are then released with tag “frameshift confirmed”.
 
-Now GISAID added an option in the batch upload process so people can choose between a few options: 
+3. Submitter is unable to check whether this is a bioinformatics artefact or a real frameshift, and choses to proceed with release of submission to global database. The sequences are released with a tag “frameshift not confirmed” 
+
+GISAID’s data curation protocols do not permit the rejection of sequences with frameshifts. In the event where the frameshift cannot be confirmed by the submitter, the sequences can be released on EpiCoV with a “frameshift not confirmed” tag. 
+
+===============================
+
+GISAID's approach is very reasonable: to alert people of potential errors, yet provide the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not made clear anywhere and everyone felt burdened to "fix" their genomes that were not released immediately.
+
+GISAID added an option in the upload process so people can choose between a few options: 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/gisaid_options.png" width="1000"> 
 
 The ideal workflow is to select the middle option in the first submission, take all rejected sequences with frameshifts and then go through them to check, fix assembly errors, and resubmit with the last option (which corresponds to point 1-2 above). 
 
-Alternatively for busy people, one can also upload and add a message with this button <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/gisaid_contact.png" width="100"> to note that the frameshifts are not verified and ask GISAID to accept the data as is (corresponds to point 3 above). We believe the "verfied frameshift" and "non-verified frameshift" are distinguished by this icon on GISAID search table <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/gisaid_mark.png" width="30"> ... except we're not sure which is which XD 
+Alternatively for busy people, one can also upload and add a message with this button <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/gisaid_contact.png" width="100"> to note that the frameshifts are not verified and ask GISAID to accept the data as is (corresponds to point 3 above). 
+
+The confirmed and non-confirmed frameshifts are released with tags “frameshift confirmed” and “frameshift not confirmed” respectively. One can search for entries that include frameshift tags (confirmed or unconfirmed) using the free text search in EpiCoV for “frameshift”.
 
 <br>
 
