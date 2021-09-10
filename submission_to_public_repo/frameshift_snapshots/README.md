@@ -1,6 +1,6 @@
 ## Snapshots of the genomic position that were flagged by GISAID or GenBank as frameshifts.
 
-<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/type_count_b.png" width="300">
+<img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_to_public_repo/documentation_images/type_count_b.png" width="300">
 
 - The genomic positions of interest are at 20bp from the left edge of the snapshots.
 
