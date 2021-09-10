@@ -4,7 +4,7 @@
 
 - [How to fix the frameshift errors and when not to, with some interesting examples.](#types-of-frameshifts-and-when-to-fix-them)
 
-- [Some interesting observations for the curious minds.](#some-interesting-observations)
+- [Some observations for the curious minds.](#some-interesting-observations)
 
 
 <br>
