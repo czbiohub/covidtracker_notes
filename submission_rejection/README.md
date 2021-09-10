@@ -32,7 +32,7 @@ GISAID requests submitters to select their preference for how sequences with fra
 
 **2. Submitter performs QC and confirms the frameshift to be a true frameshift. The sequences are then released with tag “frameshift confirmed”.**
 
-**3. Submitter is unable to check whether this is a bioinformatics artefact or a real frameshift, and choses to proceed with release of submission to global database. The sequences are released with a tag “frameshift not confirmed” **
+**3. Submitter is unable to check whether this is a bioinformatics artefact or a real frameshift, and choses to proceed with release of submission to global database. The sequences are released with a tag “frameshift not confirmed”.**
 
 GISAID’s data curation protocols do **not** permit the rejection of sequences with frameshifts. In the event where the frameshift cannot be confirmed by the submitter, the sequences can be released on EpiCoV with a “frameshift not confirmed” tag. 
 
