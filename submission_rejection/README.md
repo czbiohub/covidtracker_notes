@@ -28,11 +28,11 @@ While GISAID remains committed to high-quality data standards, GISAID continuous
 
 GISAID requests submitters to select their preference for how sequences with frameshifts are handled as part of the process for upload, and will be notified accordingly. Current options include:
 
-**1. “Notify me about all detected frameshifts in this submission for reconfirmation of affected sequences”  and “Notify me only about not previously reported frameshifts in this submission for reconfirmation of affected sequences”. If these options are selected and a frameshift is detected, the submitter can elect to: Submitter performs QC and if bioinformatics error is believed to have occurred, submitter amends submission and resubmits.
+**1. “Notify me about all detected frameshifts in this submission for reconfirmation of affected sequences”  and “Notify me only about not previously reported frameshifts in this submission for reconfirmation of affected sequences”. If these options are selected and a frameshift is detected, the submitter can elect to: Submitter performs QC and if bioinformatics error is believed to have occurred, submitter amends submission and resubmits.**
 
-**2. Submitter performs QC and confirms the frameshift to be a true frameshift. The sequences are then released with tag “frameshift confirmed”.
+**2. Submitter performs QC and confirms the frameshift to be a true frameshift. The sequences are then released with tag “frameshift confirmed”.**
 
-**3. Submitter is unable to check whether this is a bioinformatics artefact or a real frameshift, and choses to proceed with release of submission to global database. The sequences are released with a tag “frameshift not confirmed” 
+**3. Submitter is unable to check whether this is a bioinformatics artefact or a real frameshift, and choses to proceed with release of submission to global database. The sequences are released with a tag “frameshift not confirmed” **
 
 GISAID’s data curation protocols do **not** permit the rejection of sequences with frameshifts. In the event where the frameshift cannot be confirmed by the submitter, the sequences can be released on EpiCoV with a “frameshift not confirmed” tag. 
 
