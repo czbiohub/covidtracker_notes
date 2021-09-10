@@ -6,7 +6,7 @@
 
 - [Some observations for the curious minds.](#some-interesting-observations)
 
-(Special thanks to GISAID curation team in providing comments!)
+(Special thanks to GISAID curation team in providing comments and updated info!)
 
 <br>
 
