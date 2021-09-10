@@ -11,11 +11,11 @@
 
 ## When some submitted genomes don't get accepted immediately
 
-Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs fix. It means they need a quality check which not always lead to edits of the genomic sequence.
+Receiving error messages from GISAID or GenBank doesn't neccessarily mean the genome assembly is wrong and needs to be fixed. It means they need a quality check, which doesn't always lead to edits of the genomic sequence.
 
 ### GISAID 
 
-Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with the word `FRAMESHIFT` in the comment column. Sometimes GISAID will send the comment together with rejection to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better, and smaller batches of < 200 is better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift, and the genomic position of the frameshift is critical in evaluating and fixing them.
+Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with the word `FRAMESHIFT` in the comment column. Sometimes GISAID will send the comment together with rejection to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better and smaller batches of < 200 genomes are better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift and the genomic position of the frameshift is critical in evaluating and fixing them.
 
 Below is direct quote from the GISAID team (Jun 2021 email):
 
@@ -44,9 +44,9 @@ Alternatively for busy people, one can also upload and add a message with this b
 ### GenBank
 
 GenBank runs [VADR](https://github.com/ncbi/vadr) and will detect many [potential problems](https://github.com/ncbi/vadr/blob/master/documentation/alerts.md#top) the genomes may have, and if any of those errors land within the essential genes, they will not let the sequence in. We usually do a 1st submission to GenBank while checking this box <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/genbank_box.png" width="450"> 
-where they will not report errors, and collect the genomes that were removed and do a 2nd submission with that box unchecked to obtain the VADR error message `detailed-error-report.tsv`. 
+where they will not report errors, and then we collect the genomes that were removed and do a 2nd submission with that box unchecked to obtain the VADR error message `detailed-error-report.tsv`. 
 
-There are a lot of [errors types](https://www.ncbi.nlm.nih.gov/genbank/sequencecheck/virus/) and some of the errors can be connected or originate from the same sequence problem, such as `CDS_HAS_FRAMESHIFT` can lead to `CDS_HAS_STOP_CODON` and `INDEFINITE_ANNOTATION_END` and `UNEXPECTED_LENGTH`. The goal here is not to "fix" the genome until there is no more VADR errors. The goal is to fix the assembly errors and leave whatever that is correctly-assembled and well-supported by reads as is, and communicate to GenBank that you have done the due diligence. That being said, we have not succeeded in sending our rejected genomes in so this section is to be completed...
+There are a lot of [error types](https://www.ncbi.nlm.nih.gov/genbank/sequencecheck/virus/) and some of the errors can be connected or originate from the same sequence problem, such as `CDS_HAS_FRAMESHIFT` can lead to `CDS_HAS_STOP_CODON` and `INDEFINITE_ANNOTATION_END` and `UNEXPECTED_LENGTH`. The goal here is not to "fix" the genome until there is no more VADR errors. The goal is to fix the assembly errors and leave whatever that is correctly-assembled and well-supported by reads as is, and communicate to GenBank that you have done the due diligence. That being said, we have not succeeded in sending our rejected genomes in so this section is to be completed...
 
 <br>
 
@@ -70,7 +70,7 @@ A fasta file with a linear genomic sequence has its limitations representing a m
 
 ### If there is mis-assembly of the genome based on aligned sequencing reads, the genome needs a fix.
 
-With our Illumina data, most of the assembly error look like this example below. The error message said it had a 1bp deletion that led to frameshift. If you look at the read alignment, it is actually a 3bp deletion unambiguously representated by the reads containing these 3bp deletions. However, there are reads that align into the region of deletion such as the first read. This read ends with nucleotide `TA` which are the same as the first 2bp of the deletion, which are also the same as the nucleotides flanking the deletion (indicated by 2 blue arrows), so most likely this read contains the deletion just like the other reads. However when the read-aligner mapped this read to the reference genome, it can map it either as not having the deletion (as shown in the snapshot below), or map it as having the deletion, and they will be equally good alignment. In this case, the aligner would always favor not to have the deletion to avoid the gap-penalty of alignment. As a result, this read was mapped as not having the deletion, and instead extend into the deletion. 
+With our Illumina data, most of the assembly errors look like this example below. The error message said it had a 1bp deletion that led to frameshift. If you look at the read alignment, it is actually a 3bp deletion unambiguously representated by the reads containing these 3bp deletions. However, there are reads that align into the region of deletion such as the first read. This read ends with nucleotide `TA` which are the same as the first 2bp of the deletion, which are also the same as the nucleotides flanking the deletion (indicated by 2 blue arrows), so most likely this read contains the deletion just like the other reads. However, when the read-aligner mapped this read to the reference genome, it can map it either as not having the deletion (as shown in the snapshot below) or map it as having the deletion, and they will be equally good alignment. In this case, the aligner will always favor not having the deletion to avoid the gap-penalty of alignment. As a result, this read was mapped as not having the deletion, and instead extended into the deletion. 
 
 Then this alignment was given to iVar to assemble the genome. From iVar's perspective, in the first 2 positions of the 3bp deletion, some reads have a deletion, some reads don't (such as the first read), and therefore iVar would fill those 2 positions as `N`, and leave only 1bp of deletion. That is where this 1bp frameshift error comes from. To fix this assembly error in the consensus genome, we deleted the 2 Ns that falls within the deletion to make it a 3bp deletion.
 
@@ -80,7 +80,7 @@ Here is another example.
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/mis2.png" width="600">
 
-In a rarely seen but related scenario below, the 4bp in the middle is `TTCA` in the refrence genome, and in the sample genome the sequence is `GTTC`. When the reads were aligned, they could either be aligned as having mutations in 3 positions, or a combination of an insertion and a deletion. When such a mixed alignment type were presented to iVar, iVar combined these 2 types of alignment and called the position of insertion `N` as explained above, followed by `K` (`T` or `G`), `T`, `Y` (`C` or `T`), and the deletion as `N`. That is 1bp longer than the reference genome and therefore a frameshift. To fix this assembly error, we replaced `NKTYN` with `GTTC` and the frameshift went away.
+In a rarely seen but related scenario below, the 4bp in the middle is `TTCA` in the refrence genome, and in the sample genome the sequence is `GTTC`. When the reads were aligned, they could either be aligned as having mutations in 3 positions, or a combination of an insertion and a deletion. When such a mixed alignment type was presented to iVar, iVar combined these 2 types of alignment and called the position of insertion `N` as explained above, followed by `K` (`T` or `G`), `T`, `Y` (`C` or `T`), and the deletion as `N`. That is 1bp longer than the reference genome and therefore a frameshift. To fix this assembly error, we replaced `NKTYN` with `GTTC` and the frameshift went away.
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/mis3.png" width="500">
 
@@ -92,7 +92,7 @@ Another example:
 
 ### If the genome assembly is correct, there is nothing to fix. Regardless of whether frameshift or not, do not edit anything.
 
-Whether there is assembly error is independent of whether a real frameshift exist or not. Our goal is to fix all assembly errors and after that leave the rest alone regardless of frameshifts. The key to tell whether the genome assembly is correct, is whether the number of base pair of deletion or insertion as flagged by the error message match the reads. Below matches the error message of "FRAMESHIFT of 8bp" so it needs no edits. 
+Whether there is assembly error is independent of whether a real frameshift exists or not. Our goal is to fix all assembly errors and after that leave the rest alone regardless of frameshifts. The key to tell whether the genome assembly is correct, is whether the number of base pair of deletion or insertion as flagged by the error message match the reads. Below matches the error message of "FRAMESHIFT of 8bp" so it needs no edits. 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/real1.png" width="400">
 
@@ -130,7 +130,7 @@ Our samples were collected between Mar 2020 and May 2021.
 
 ### Where on the genome the frameshifts tend to appear
 
-The rationale behind flagging frameshifts as potential errors is that frameshifts are usually detrimental becuase they change the amino acid sequences. However in general, COVID (and all organisms) has some amount of tolerance to that. For example, some genes are not that critical, for example ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), frameshifts near the end of genes matters less, and if there is more than one viral genotype in a host, their proteins can compensate for each other. 
+The rationale behind flagging frameshifts as potential errors is that frameshifts are usually detrimental becuase they change the amino acid sequences. However, in general, SARS-CoV-2 (and all organisms) has some amount of tolerance to that. For example, some genes are not that critical, for example ORF8 can tolerate a large amount of deletion [REF](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7577707/)), frameshifts near the end of genes matters less, and if there is more than one viral genotype in a host, their proteins can compensate for each other. 
 
 Below are frameshift positions we saw in more than 10 sample genomes. These numbers carry the caveat that we often sequenced outbreak samples that have identical or highly related genomes and are likely to share the same frameshifts.
 
