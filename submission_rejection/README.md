@@ -17,7 +17,7 @@ Receiving error messages from GISAID or GenBank doesn't neccessarily mean the ge
 
 Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/) and by default will not pass sequences with the word `FRAMESHIFT` in the comment column. Sometimes GISAID will send the comment together with rejection to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better and smaller batches of < 200 genomes are better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift and the genomic position of the frameshift is critical in evaluating and fixing them.
 
-Below is direct quote from the GISAID team (Jun 2021 email):
+**Below is direct quote from the GISAID team (Jun 2021 email):**
 
 ```
 Your sequences with frameshift detection have not been rejected... The curation team is just waiting for the submitter's confirmation, waiting for three possibilities:
