@@ -6,6 +6,7 @@
 
 - [Some observations for the curious minds.](#some-interesting-observations)
 
+(Special thanks to GISAID curation team in providing comments!)
 
 <br>
 
@@ -15,7 +16,7 @@ Receiving error messages from GISAID or GenBank doesn't necessarily mean the gen
 
 ### GISAID 
 
-Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/). When a frameshift is detected (word `FRAMESHIFT` in the comment column), the submitter is notified and confirmation of the frameshift will be requested for quality control. Sometimes GISAID will send the comment together with notification to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better and smaller batches of < 200 genomes are better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift and the genomic position of the frameshift is critical in evaluating and fixing them.
+Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://www.gisaid.org/epiflu-applications/covsurver-mutations-app/). When a frameshift is detected (word `FRAMESHIFT` in the comment column), the submitter is notified, and confirmation of the frameshift will be requested for quality control. Sometimes GISAID will send the comment together with notification to the submitter. But when they don't, the users can run CoVsurver themselves and the error report can be found in the `query summary report` file on the very bottom of the CoVsurver result page (keep scrolling). If this tool gets busy and hangs, try a different time of the day (afternoon is better and smaller batches of < 200 genomes are better). Sometimes the comment looks like `Insertion of 11 nucleotide(s) found at refpos 27850 (FRAMESHIFT). NS7b without BLAST coverage. Stretch of NNNs.` but the only part that matters for submission is the frameshift. Knowing the number of base pairs of insertion or deletions that's causing the frameshift and the genomic position of the frameshift is critical in evaluating and fixing them.
 
 ==============================
 
@@ -24,6 +25,7 @@ Behind the scene, GISAID runs the submitted genomes through [CoVsurver](https://
 In Late July 2020, GISAID confirmed with public health authorities its procedures for the quality control of gaps in genomic sequences that cause frameshifts and other genomic changes. In case of more consequential changes, insertions and deletions can result in a frameshift which would result in truncated non-functional proteins (normally selected against by the natural evolution and hence more likely a technical error).  As a result, GISAID protocols call for curators to confirm with data submitters that such observations are indeed supported by the sequencing data they present.  As a result of GISAID’s confirmation procedures, countless errors are detected that would otherwise be introduced in the EpiCoV™ database. 
 
 While GISAID remains committed to high-quality data standards, GISAID continuously improves the user experience as well as data submission procedures. Current solutions include functionalities permitting submitters to confirm that their bioinformatics pipeline reliably captures sequence changes.
+
 GISAID requests submitters to select their preference for how sequences with frameshifts are handled as part of the process for upload, and will be notified accordingly. Current options include:
 
 1. “Notify me about all detected frameshifts in this submission for reconfirmation of affected sequences”  and “Notify me only about not previously reported frameshifts in this submission for reconfirmation of affected sequences”. If these options are selected and a frameshift is detected, the submitter can elect to: Submitter performs QC and if bioinformatics error is believed to have occurred, submitter amends submission and resubmits.
@@ -32,13 +34,13 @@ GISAID requests submitters to select their preference for how sequences with fra
 
 3. Submitter is unable to check whether this is a bioinformatics artefact or a real frameshift, and choses to proceed with release of submission to global database. The sequences are released with a tag “frameshift not confirmed” 
 
-GISAID’s data curation protocols do not permit the rejection of sequences with frameshifts. In the event where the frameshift cannot be confirmed by the submitter, the sequences can be released on EpiCoV with a “frameshift not confirmed” tag. 
+GISAID’s data curation protocols do **not** permit the rejection of sequences with frameshifts. In the event where the frameshift cannot be confirmed by the submitter, the sequences can be released on EpiCoV with a “frameshift not confirmed” tag. 
 
 ===============================
 
-GISAID's approach is very reasonable: to alert people of potential errors, yet provide the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not made clear anywhere and everyone felt burdened to "fix" their genomes that were not released immediately.
+GISAID's approach is very reasonable: to alert people of potential errors, yet provide the option to submit the genomes as is without any additional work to check or fix anything. The problem is this information was not widely known and everyone felt burdened to "fix" their genomes that were not released immediately.
 
-GISAID added an option in the upload process so people can choose between a few options: 
+In practice, in the upload process people can choose between a few options: 
 
 <img src="https://github.com/czbiohub/covidtracker_notes/blob/main/submission_rejection/documentation_images/gisaid_options.png" width="1000"> 
 
