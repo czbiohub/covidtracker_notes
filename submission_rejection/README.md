@@ -64,7 +64,7 @@ Note that Biohub only have **Illumina short read data** from metagenomic or ARTI
 
 ### Where did the `N` come from?
 
-A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, sequencing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a genomic position is `A` in some reads and `C` in others, this position can be represented as `M` (IUPAC code for `A` or `C`). However if a position has `A` in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an `N` in that position for lack of a better choice. Almost all the editing done to correct our genome assembly errors was to delete these Ns.
+A fasta file with a linear genomic sequence has its limitations representing a mixture of more than 1 type of genomes. Naturally occurring intra-host variation, sample contaminations, sequencing errors can all lead to more than 1 type of genomes in the sample. [IUPAC code](https://www.bioinformatics.org/sms2/iupac.html) can represent some of the diversity in nucleotide composition. For example, If a genomic position is `A` in some reads and `C` in others, this position can be represented as `M` (IUPAC code for `A` or `C`). However if a position has `A` in some reads, and is deleted in others, there is no corresponding IUPAC code and iVar will resort to put an `N` in that position for lack of a better choice (see related [discussion here](https://github.com/andersen-lab/ivar/issues/45)). Almost all the editing done to correct our genome assembly errors was to delete these Ns.
 
 <br>
 
@@ -104,7 +104,7 @@ Another example of real frameshift and correct genome assemlby. If you notice th
 
 ### If it is a random 1bp insertion, can go either way. For our sanity, we did not fix them.
 
-This is an interesting type of frameshift. It is a 1bp insertion that lands at seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 11/260 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome (see [discussion here](https://github.com/andersen-lab/ivar/issues/45)). 
+This is an interesting type of frameshift. It is a 1bp insertion that lands at seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 11/260 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. 
 
 For the purpose of submission, because the 1bp insertion is well-supported by reads, we usually did't remove them from the genome. Someone someday may find this feature interesting and do some study with it (or yes, our submitter is simply too lazy).
 
