@@ -115,7 +115,7 @@ Another example of real frameshift and correct genome assemlby. If you notice th
 
 ### If it is a random 1bp insertion, can go either way. For our sanity, we did not fix them.
 
-This is an interesting type of frameshift. It is a 1bp insertion that lands at seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 11/260 instances precede `C` or `G`), and is usually present in some of the reads but not all of them, which leads to a representation by `N` in the assembled genome. 
+This is an interesting type of frameshift. It is a 1bp insertion that lands at seemingly random positions across the genome, most often precedes a short stretch of `A` or `T` (only 11/260 instances precede `C` or `G`), and is usually present in some of the reads but not all of them. When `ivar` assembles genomes, it writes a position that has 1bp insertion in some reads but not in the others as an additional `N` in the insertion position to the reference genome, therefore causing the frameshift. 
 
 For the purpose of submission, because the 1bp insertion is well-supported by reads, we usually did't remove them from the genome. Someone someday may find this feature interesting and do some study with it (or yes, our submitter is simply too lazy).
 
